@@ -1,12 +1,12 @@
 # 🛡️ AI Secure Data Intelligence Platform
 
-An AI-powered security platform that scans logs, text, and SQL queries for sensitive data exposure, calculates risk scores, and provides intelligent insights using Google Gemini AI. The platform detects passwords, API keys, tokens, emails, phone numbers, IP addresses, and brute force attempts, then applies security policies like data masking and high-risk content blocking.
+An AI-powered security platform that scans logs, text, and SQL queries for sensitive data exposure, calculates risk scores, and provides intelligent insights using Groq AI (Llama 3). The platform detects passwords, API keys, tokens, emails, phone numbers, IP addresses, and brute force attempts, then applies security policies like data masking and high-risk content blocking.
 
 ## 🚀 Tech Stack
 
 **Backend:**
 - FastAPI - Modern Python web framework
-- Google Gemini AI - AI-powered insights generation
+- Groq AI - Ultra-fast AI inference
 - PyMuPDF & python-docx - Document parsing
 - SlowAPI - Rate limiting (20 req/min)
 - Pydantic - Data validation
@@ -29,7 +29,7 @@ An AI-powered security platform that scans logs, text, and SQL queries for sensi
 ### Prerequisites
 - Python 3.8+
 - Node.js 16+
-- Google Gemini API Key ([Get one here](https://ai.google.dev))
+- Groq API Key ([Get one here](https://console.groq.com/keys))
 
 ### Backend Setup
 
@@ -40,7 +40,7 @@ cd backend
 pip install -r requirements.txt
 
 # Create .env file
-echo "GEMINI_API_KEY=your_api_key_here" > .env
+echo "GROQ_API_KEY=your_api_key_here" > .env
 
 # Run the server
 uvicorn main:app --reload

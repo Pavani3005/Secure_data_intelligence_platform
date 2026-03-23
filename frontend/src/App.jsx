@@ -469,26 +469,6 @@ export default function App() {
 
             {results ? (
               <>
-                {/* ── Threat Classification Badge ────────────────── */}
-                {results.threat_classification && (() => {
-                  const tcColors = {
-                    'Credential Exposure':      '#7c3aed',
-                    'Active Intrusion Attempt': '#dc2626',
-                    'Data Leak':                '#ea580c',
-                    'System Error Leak':        '#ca8a04',
-                    'Clean':                    '#16a34a',
-                  }
-                  const tc  = results.threat_classification
-                  const col = tcColors[tc] || '#475569'
-                  return (
-                    <div className="threat-badge-row">
-                      <span className="threat-badge" style={{ background: col, boxShadow: `0 0 16px ${col}88` }}>
-                        🎯 {tc}
-                      </span>
-                    </div>
-                  )
-                })()}
-
                 {/* Gauge hero */}
                 <div className="gauge-hero">
                   <RiskGauge score={results.risk_score} level={results.risk_level}/>

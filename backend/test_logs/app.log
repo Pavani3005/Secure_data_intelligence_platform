@@ -1,5 +1,104 @@
-2026-03-10 10:00:01 INFO User login  
-email=admin@company.com  
-password=admin123  
-api_key=sk-prod-xyz  
-ERROR stack trace: NullPointerException at service.java:45  
+2026-03-10 09:59:59 INFO Server starting on port 8080
+2026-03-10 10:00:01 INFO User login request received
+email=admin@company.com
+password=admin123
+api_key=sk-prod-xyz123
+
+2026-03-10 10:00:05 DEBUG Fetching user profile
+user_id=1023
+session_id=abc123xyz
+
+2026-03-10 10:01:10 WARN Failed login attempt for user admin
+2026-03-10 10:01:12 WARN Failed login attempt for user admin
+2026-03-10 10:01:14 WARN Failed login attempt for user admin
+2026-03-10 10:01:16 WARN Failed login attempt for user admin
+
+2026-03-10 10:02:20 INFO Payment processing started
+card_number=4111111111111111
+cvv=123
+expiry=12/28
+
+2026-03-10 10:03:33 ERROR NullPointerException at AuthService.java:45
+Stack trace:
+at com.app.service.login(AuthService.java:45)
+at com.app.controller.UserController.login(UserController.java:22)
+
+2026-03-10 10:04:10 INFO Authorization header received
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.fake.token
+
+2026-03-10 10:05:45 DEBUG SQL Query execution
+SELECT * FROM users WHERE username = 'admin' OR '1'='1';
+
+2026-03-10 10:06:00 INFO New user registration
+email=testuser@gmail.com
+phone=9876543210
+
+2026-03-10 10:07:22 INFO API request to external service
+endpoint=/v1/payment/process
+response_status=200
+
+2026-03-10 10:08:30 ERROR Database connection failed
+db_password=root123
+db_user=root
+
+2026-03-10 10:09:50 INFO Debug mode enabled
+config_debug=true
+
+2026-03-10 10:10:15 WARN Suspicious activity detected
+IP=192.168.1.10
+attempts=15
+
+2026-03-10 10:11:40 INFO File upload started
+file_name=report.pdf
+file_size=2MB
+
+2026-03-10 10:12:55 DEBUG Internal config dump
+SECRET_KEY=supersecretkey123
+JWT_SECRET=jwtsecretvalue
+
+2026-03-10 10:14:10 INFO User logout
+user_id=1023
+
+2026-03-10 10:15:20 ERROR TimeoutException at PaymentService.java:78
+Stack trace:
+at com.app.service.payment(PaymentService.java:78)
+
+2026-03-10 10:16:00 INFO Heartbeat check OK
+
+2026-03-10 10:17:45 WARN Rate limit exceeded for IP 192.168.1.10
+
+2026-03-10 10:18:30 DEBUG Query logs
+SELECT email, password FROM users;
+
+2026-03-10 10:19:55 INFO OAuth login
+token=gho_1234567890abcdef
+
+2026-03-10 10:20:10 INFO Session created
+session_token=xyz123tokenvalue
+
+2026-03-10 10:21:00 ERROR FileNotFoundException at FileService.java:12
+
+2026-03-10 10:22:22 INFO Metrics collected
+cpu_usage=75%
+memory_usage=68%
+
+2026-03-10 10:23:45 DEBUG API key rotation
+old_key=sk-old-123
+new_key=sk-new-456
+
+2026-03-10 10:25:00 WARN Multiple failed OTP attempts
+user=admin
+attempts=5
+
+2026-03-10 10:26:30 INFO System running normally
+
+2026-03-10 10:27:10 ERROR Unauthorized access attempt
+endpoint=/admin/panel
+
+2026-03-10 10:28:55 DEBUG Raw request dump
+{
+  "username": "admin",
+  "password": "admin123"
+}
+
+2026-03-10 10:30:00 INFO Backup completed successfully

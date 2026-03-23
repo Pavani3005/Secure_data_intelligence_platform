@@ -95,18 +95,27 @@ def get_insights(log_text: str, findings: list) -> dict:
     findings_json = json.dumps(findings, indent=2)
 
     # ── Pass 1: independent AI detection ─────────────────────────
-    pass1_prompt = f"""You are a cybersecurity expert analyzing raw application logs.
-Analyze this log content completely independently:
+    pass1_prompt = f"""You are a senior cybersecurity analyst. Analyze the following log content for confirmed security threats.
 
+LOG CONTENT:
 {log_snippet}
 
-Look for ANY suspicious patterns, security issues, or anomalies you can find on your own.
-Do not look for specific keywords — use your judgment as a security expert.
+INSTRUCTIONS:
+1. Identify only high-confidence security threats (active attacks, clear credential theft, critical data leaks).
+2. Ignore standard system logs, debug messages, and benign database queries.
+3. If the log appears safe or contains only informational text, return an empty list.
+4. Do not speculate. Only report threats explicitly visible in the text.
 
-Return a valid JSON object matching this schema:
-{{"ai_detected": [
-    {{"description": "what you found", "line_hint": "approximate line or pattern", "severity": "low/medium/high/critical"}}
-]}}"""
+RESPONSE FORMAT (JSON ONLY):
+{{
+    "ai_detected": [
+        {{
+            "description": "Clear description of the confirmed threat",
+            "line_hint": "Exact text snippet from log",
+            "severity": "low/medium/high/critical"
+        }}
+    ]
+}}"""
 
     ai_detected = []
     raw1 = ""
@@ -118,23 +127,40 @@ Return a valid JSON object matching this schema:
         logger.error("PASS-1 failed (%s: %s) | raw=%r", type(e).__name__, e, raw1[:300])
         # Non-fatal: continue to pass 2 with empty ai_detected
 
+    # ── Short-circuit: If no findings from either source, return Clean immediately ──
+    if not findings and not ai_detected:
+        return {
+            "summary": "No security threats detected.",
+            "anomalies": [],
+            "recommendations": [],
+            "risk_explanation": "No risks identified by regex rules or AI analysis.",
+            "threat_classification": "Clean",
+            "ai_only_findings": []
+        }
+
     # ── Pass 2: correlation analysis ─────────────────────────────
     ai_detected_json = json.dumps(ai_detected, indent=2)
 
-    pass2_prompt = f"""You are a cybersecurity expert. You have two sets of findings from the same log:
+    pass2_prompt = f"""You are a cybersecurity expert. Validate and summarize the security findings below.
 
-Regex findings (rule-based):
+Regex Findings (Rule-based):
 {findings_json}
 
-AI findings (pattern-based):
+AI Findings (Pattern-based):
 {ai_detected_json}
 
-Correlate these findings. Return a valid JSON object matching this schema:
-{{"summary": "2 sentence summary of what happened",
-  "anomalies": ["specific anomaly with line number if known"],
-  "recommendations": ["actionable fix 1", "actionable fix 2"],
-  "risk_explanation": "one sentence explaining WHY this risk level was assigned based on the combination of findings",
-  "threat_classification": "exactly one of: Credential Exposure / Active Intrusion Attempt / Data Leak / System Error Leak / Clean"
+INSTRUCTIONS:
+- Correlate the findings to determine the true security posture.
+- If no critical threats are found in the lists above, classification must be "Clean".
+- Do not hallucinate risks that are not present in the findings.
+
+RESPONSE FORMAT (JSON ONLY):
+{{
+  "summary": "Brief, factual summary of the security analysis.",
+  "anomalies": ["List of confirmed anomalies based on the findings."],
+  "recommendations": ["List of specific security fixes."],
+  "risk_explanation": "Justification for the risk score.",
+  "threat_classification": "One of: Credential Exposure, Active Intrusion Attempt, Data Leak, System Error Leak, Clean"
 }}"""
 
     raw2 = ""
