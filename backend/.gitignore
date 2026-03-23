@@ -13,7 +13,7 @@ __pycache__/
 venv/
 env/
 .venv/
-
+requests.log
 # Runtime-generated logs (not test data)
 *.log
 !test_logs/*.log

@@ -885,6 +885,94 @@ html, body, #root {
 }
 
 .ai-findings-note {
+  font-size: 0.65rem;
+  color: var(--text-muted);
+  text-align: center;
+  font-style: italic;
+  margin-top: 10px;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   📱 Mobile Responsiveness
+═══════════════════════════════════════════════════════════ */
+
+@media (max-width: 768px) {
+  /* ── Header ── */
+  .header-inner {
+    padding: 12px 16px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  
+  .header-logo { align-self: center; margin-bottom: 4px; }
+  
+  .header-title { font-size: 1.1rem; text-align: center; }
+  .header-sub { text-align: center; display: none; } /* Hide subtitle on mobile to save space */
+  
+  .header-status { 
+    position: absolute; 
+    top: 12px; 
+    right: 16px; 
+  }
+
+  /* ── Layout ── */
+  .main-layout {
+    padding: 16px;
+    gap: 20px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* ── Tabs ── */
+  .tabs {
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+  }
+  
+  .tab {
+    flex: 1 1 calc(33.333% - 8px); /* 3 tabs per row */
+    text-align: center;
+    padding: 8px 4px;
+    font-size: 0.75rem;
+    min-width: 80px;
+  }
+
+  /* ── Inputs ── */
+  .dropzone { padding: 24px 16px; }
+  .drop-main { font-size: 0.85rem; }
+  .input-textarea { font-size: 0.75rem; }
+
+  /* ── Gauges & Badges ── */
+  .gauge-svg { width: 260px; max-width: 100%; }
+  
+  .gauge-score-value { font-size: 1.4rem; }
+  
+  .finding-badges {
+    grid-template-columns: 1fr; /* Stack badges vertically */
+  }
+
+  /* ── Tables ── */
+  .val-cell { max-width: 120px; }
+  
+  /* ── Log Viewer ── */
+  .log-line-count { display: none; } /* Hide count if space is tight */
+  .log-text { font-size: 0.68rem; }
+}
+
+@media (max-width: 480px) {
+  .header-title { font-size: 1rem; }
+  
+  .tab {
+    flex: 1 1 calc(50% - 8px); /* 2 tabs per row on very small screens */
+  }
+  
+  .gauge-score-value { font-size: 1.2rem; }
+  .gauge-level-badge { font-size: 0.7rem; padding: 4px 16px; }
+}
+
+.ai-findings-note {
   font-size: 0.7rem;
   color: var(--text-muted);
   font-style: italic;
