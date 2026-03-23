@@ -1,4 +1,22 @@
+# Environment & secrets
 .env
+.env.*
+
+# Python cache
 __pycache__/
 *.pyc
+*.pyo
+*.pyd
+.Python
+
+# Virtual environment
+venv/
+env/
+.venv/
+
+# Runtime-generated logs (not test data)
+*.log
+!test_logs/*.log
+
+# Node (shouldn't be here but just in case)
 node_modules/
