@@ -1,0 +1,5 @@
+2026-03-10 10:00:01 INFO User login  
+email=admin@company.com  
+password=admin123  
+api_key=sk-prod-xyz  
+ERROR stack trace: NullPointerException at service.java:45  

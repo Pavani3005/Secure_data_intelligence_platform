@@ -1,0 +1,3 @@
+2026-03-10 10:00:01 INFO Token refresh triggered
+2026-03-10 10:00:02 DEBUG token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9 assigned
+2026-03-10 10:00:03 DEBUG Bearer eyJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJ1c2VyMTIz refreshed

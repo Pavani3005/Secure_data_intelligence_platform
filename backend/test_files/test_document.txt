@@ -1,0 +1,6 @@
+User Report - March 2026
+Admin credentials: password=admin123
+Support contact: help@company.com
+API access token: api_key=sk-support-ABC123DEF
+Phone: +919876543210
+All queries routed through internal system.

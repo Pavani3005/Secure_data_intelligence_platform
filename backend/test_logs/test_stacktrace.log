@@ -1,0 +1,4 @@
+2026-03-10 10:00:01 ERROR NullPointerException at UserService.java:45
+2026-03-10 10:00:02 ERROR ArrayIndexOutOfBoundsException at DataParser.java:112
+2026-03-10 10:00:03 ERROR Traceback most recent call last
+2026-03-10 10:00:04 ERROR KeyError at app.py:88

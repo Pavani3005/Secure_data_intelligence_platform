@@ -1,0 +1,9 @@
+fastapi
+uvicorn
+python-multipart
+groq
+python-dotenv
+pydantic
+PyMuPDF
+python-docx
+slowapi

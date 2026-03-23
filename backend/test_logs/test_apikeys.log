@@ -1,0 +1,4 @@
+2026-03-10 10:00:01 INFO Initializing services
+2026-03-10 10:00:02 DEBUG api_key=sk-prod-ABC123DEF456 loaded
+2026-03-10 10:00:03 DEBUG apikey=mySecretKey9876xyz connected
+2026-03-10 10:00:04 DEBUG API_KEY=livekey-abcdef123456 used
