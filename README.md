@@ -236,23 +236,3 @@ Main analysis endpoint
 | IP Address | `192.168.1.1` | 🟢 Low |
 | Brute Force | 3+ failed login attempts | 🟠 High |
 
-## 🎨 Risk Levels
-
-| Risk Level | Score Range | Color |
-|---|---|---|
-| **Critical** | 10+ | 🔴 `#cc0000` |
-| **High** | 5–9 | 🟠 `#ff6600` |
-| **Medium** | 2–4 | 🟡 `#ffcc00` |
-| **Low** | 0–1 | 🟢 `#00cc44` |
-
-## 📝 License
-
-MIT License — free to use for learning and development.
-
-## 🤝 Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request.
-
----
-
-Built with ❤️ using FastAPI, React, and Google Gemini AI
