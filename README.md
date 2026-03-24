@@ -182,7 +182,7 @@ curl -X POST http://localhost:8000/analyze \
 ## 🔍 Detected Patterns
 
 - **Passwords** - `password=...`, `pwd=...`, etc. (Critical)
-- **API Keys** - `api_key=...`, `apikey=...`, `sk-...` (High)
+- **API Keys** - `api_key=...`, `apikey=...`, `sk-...`, etc. (High)
 - **JWT Tokens** - `eyJ...` format (High)
 - **Emails** - Standard email format (Medium)
 - **Phone Numbers** - International format (Medium)
