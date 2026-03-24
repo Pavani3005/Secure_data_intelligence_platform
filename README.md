@@ -1,54 +1,80 @@
 # 🛡️ AI Secure Data Intelligence Platform
 
-An AI-powered security platform that scans logs, text, and SQL queries for sensitive data exposure, calculates risk scores, and provides intelligent insights using Groq AI (Llama 3). The platform detects passwords, API keys, tokens, emails, phone numbers, IP addresses, and brute force attempts, then applies security policies like data masking and high-risk content blocking.
+An AI-powered security platform that scans logs, text, SQL queries, PDFs, and DOCX files for sensitive data exposure. It calculates risk scores and delivers intelligent recommendations powered by **Groq AI** running the `llama-3.3-70b-versatile` model. The platform detects passwords, API keys, JWT tokens, emails, phone numbers, IP addresses, credit cards, and brute-force attempts — then enforces security policies such as automated data masking and high-risk content blocking.
+
+## ✨ Main Features
+
+| Feature | Description |
+|---|---|
+| 🔍 **Multi-format Input** | Analyze raw text, SQL queries, chat transcripts, log files, PDFs, and DOCX documents |
+| 🤖 **AI-Powered Insights** | Groq `llama-3.3-70b-versatile` generates anomaly summaries and actionable recommendations |
+| 🎯 **Pattern Detection** | 10+ sensitive data types detected via regex (passwords, API keys, JWT, emails, IPs, credit cards, etc.) |
+| 📊 **Risk Scoring** | Automatic risk score (0–20+) mapped to Low / Medium / High / Critical levels |
+| 🛡️ **Policy Engine** | Mask sensitive values in-place or block high-risk content entirely |
+| 📋 **Log Analyzer** | Detects brute-force attempts and anomalies across multi-line log files |
+| ⏱️ **Rate Limiting** | 20 requests per minute per IP to prevent abuse |
+| 📝 **Audit Logging** | Every request is recorded in `requests.log` for full audit-trail visibility |
+| 📱 **Responsive UI** | Dark-themed React dashboard with drag-and-drop file uploads — works on desktop and mobile |
 
 ## 🚀 Tech Stack
 
 **Backend:**
-- FastAPI - Modern Python web framework
-- Groq AI - Ultra-fast AI inference
-- PyMuPDF & python-docx - Document parsing
-- SlowAPI - Rate limiting (20 req/min)
-- Pydantic - Data validation
+- **FastAPI** — Modern async Python web framework
+- **Groq AI** (`llama-3.3-70b-versatile`) — Ultra-fast LLM inference
+- **PyMuPDF & python-docx** — PDF and Word document parsing
+- **SlowAPI** — Rate limiting (20 req/min)
+- **Pydantic** — Data validation and serialisation
 
 **Frontend:**
-- React + Vite - Fast modern UI framework
-- Axios - HTTP client
-- React Dropzone - Drag-and-drop file uploads
-- Responsive CSS - Mobile-friendly design
+- **React + Vite** — Fast modern UI framework
+- **Axios** — HTTP client
+- **React Dropzone** — Drag-and-drop file uploads
+- **Responsive CSS** — Mobile-friendly dark theme
 
 **Core Services:**
-- Pattern Engine - Regex-based sensitive data detection
-- Risk Engine - Score calculation and risk leveling
-- Policy Engine - Data masking and blocking policies
-- Log Analyzer - Multi-line pattern detection
-- AI Insights - Anomaly detection and recommendations
+- **Pattern Engine** — Regex-based sensitive data detection
+- **Risk Engine** — Score calculation and risk-level assignment
+- **Policy Engine** — Data masking and blocking policies
+- **Log Analyzer** — Multi-line pattern and brute-force detection
+- **AI Insights** — Groq-powered anomaly detection and recommendations
 
 ## 📦 Installation & Setup
 
 ### Prerequisites
 - Python 3.8+
 - Node.js 16+
-- Groq API Key ([Get one here](https://console.groq.com/keys))
+- Groq API Key ([Get one free here](https://console.groq.com/keys))
 
-### Backend Setup
+### 1 — Clone the repo
+
+```bash
+git clone https://github.com/your-username/secure-data-intelligence-platform.git
+cd secure-data-intelligence-platform
+```
+
+### 2 — Backend Setup
 
 ```bash
 cd backend
 
+# Create and activate a virtual environment
+python -m venv venv
+venv\Scripts\activate        # Windows
+# source venv/bin/activate   # macOS / Linux
+
 # Install dependencies
 pip install -r requirements.txt
 
-# Create .env file
-echo "GROQ_API_KEY=your_api_key_here" > .env
+# Create .env file with your Groq API key
+echo GROQ_API_KEY=your_api_key_here > .env
 
-# Run the server
+# Start the server
 uvicorn main:app --reload
 ```
 
-Backend will run at: **http://localhost:8000**
+Backend runs at: **http://localhost:8000**
 
-### Frontend Setup
+### 3 — Frontend Setup
 
 ```bash
 cd frontend
@@ -56,30 +82,40 @@ cd frontend
 # Install dependencies
 npm install
 
-# Create .env file
-echo "VITE_API_URL=http://localhost:8000" > .env
+# Create .env file pointing to the backend
+echo VITE_API_URL=http://localhost:8000 > .env
 
-# Run the dev server
+# Start the dev server
 npm run dev
 ```
 
-Frontend will run at: **http://localhost:5173**
+Frontend runs at: **http://localhost:5173**
 
 ## 🔑 Environment Variables
 
-### Backend (.env)
+### Backend (`backend/.env`)
 ```
-GEMINI_API_KEY=your_gemini_api_key_here
+GROQ_API_KEY=your_groq_api_key_here
 ```
 
-### Frontend (.env)
+### Frontend (`frontend/.env`)
 ```
 VITE_API_URL=http://localhost:8000
 ```
 
+## 🤖 AI Model
+
+This platform uses the **Groq** inference API with the model:
+
+```
+_MODEL = "llama-3.3-70b-versatile"
+```
+
+Groq's hardware acceleration delivers near-instant responses, making real-time security analysis practical even for large documents.
+
 ## 🧪 Testing the API
 
-### Sample cURL Command
+### Quick cURL Test
 
 ```bash
 curl -X POST http://localhost:8000/analyze \
@@ -89,17 +125,19 @@ curl -X POST http://localhost:8000/analyze \
   -F "block_high_risk=false"
 ```
 
-### Using the Test Log File
+### File Upload Test
 
 ```bash
 curl -X POST http://localhost:8000/analyze \
   -F "input_type=file" \
-  -F "file=@backend/test_logs/app.log" \
+  -F "file=@backend/test_files/test_document.txt" \
   -F "mask=true" \
   -F "block_high_risk=false"
 ```
 
 ### Expected Response
+
+> **Tip:** After changing any input, click **RUN ANALYTICS** again to refresh the results.
 
 ```json
 {
@@ -171,32 +209,45 @@ Main analysis endpoint
 - `block_high_risk` (optional, default: false): Block high-risk content
 - `log_analysis` (optional, default: true): Enable logging
 
-## 📊 Features
-
-✅ **Multi-format Support** - Text, SQL, logs, PDF, DOCX  
-✅ **AI-Powered Insights** - Anomaly detection via Gemini  
-✅ **Pattern Detection** - 10+ sensitive data types  
-✅ **Risk Scoring** - Automated risk calculation  
-✅ **Policy Engine** - Data masking & blocking  
-✅ **Rate Limiting** - 20 requests/minute per IP  
-✅ **Request Logging** - Audit trail in `requests.log`  
-✅ **Responsive UI** - Mobile & desktop friendly  
-✅ **Drag & Drop** - Easy file uploads  
-
-## 📸 Screenshots
+## � Screenshots
 
 ### Main Dashboard
-![Dashboard](screenshots/dashboard.png)
+![Dashboard](ss/dashboard.png)
 
 ### Analysis Results
-![Results](screenshots/results.png)
+![Analysis Results](ss/results.png)
 
-### Log Viewer
-![Log Viewer](screenshots/log-viewer.png)
+### Extended Results View
+![Extended Results](ss/results1.png)
+
+### Log File Viewer
+![Log Viewer](ss/log_viewer.png)
+
+## 🔍 Detected Patterns
+
+| Pattern | Example | Risk Level |
+|---|---|---|
+| Password | `password=secret123` | 🔴 Critical |
+| API Key | `api_key=sk-abc123` | 🟠 High |
+| JWT Token | `eyJ...` | 🟠 High |
+| Credit Card | `4111 1111 1111 1111` | 🔴 Critical |
+| Email | `user@example.com` | 🟡 Medium |
+| Phone Number | `+1-800-555-0199` | 🟡 Medium |
+| IP Address | `192.168.1.1` | 🟢 Low |
+| Brute Force | 3+ failed login attempts | 🟠 High |
+
+## 🎨 Risk Levels
+
+| Risk Level | Score Range | Color |
+|---|---|---|
+| **Critical** | 10+ | 🔴 `#cc0000` |
+| **High** | 5–9 | 🟠 `#ff6600` |
+| **Medium** | 2–4 | 🟡 `#ffcc00` |
+| **Low** | 0–1 | 🟢 `#00cc44` |
 
 ## 📝 License
 
-MIT License - feel free to use this project for learning and development.
+MIT License — free to use for learning and development.
 
 ## 🤝 Contributing
 
