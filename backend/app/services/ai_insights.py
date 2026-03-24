@@ -10,7 +10,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 logger = logging.getLogger(__name__)
-_MODEL = "llama-3.1-8b-instant"
+_MODEL = "llama-3.3-70b-versatile"
 
 # Configure Groq client
 client = Groq(api_key=os.getenv("GROQ_API_KEY"))
